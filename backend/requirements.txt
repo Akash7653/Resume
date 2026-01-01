@@ -15,3 +15,5 @@ redis
 celery
 openai
 stripe
+PyPDF2>=3.0.0
+
