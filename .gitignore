@@ -1,0 +1,73 @@
+# =========================
+# ENV FILES
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# PYTHON
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+dist/
+*.egg-info/
+.eggs/
+*.egg
+venv/
+env/
+ENV/
+.venv
+
+# =========================
+# NODE / FRONTEND
+# =========================
+node_modules/
+frontend/node_modules/
+frontend/dist/
+
+# =========================
+# BACKEND UPLOADS (CRITICAL)
+# =========================
+backend/uploads/
+
+# =========================
+# LOGS
+# =========================
+*.log
+*.log.*
+
+# =========================
+# DATABASE
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# TEST / CACHE
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# =========================
+# REDIS
+# =========================
+dump.rdb
+
+# =========================
+# IDE / OS
+# =========================
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+Thumbs.db
+.DS_Store

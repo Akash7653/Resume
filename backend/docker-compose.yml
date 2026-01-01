@@ -1,0 +1,68 @@
+services:
+  mongo:
+    image: mongo:latest
+    container_name: resumeiq_mongo
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      - MONGO_INITDB_DATABASE=resumeiq
+    restart: unless-stopped
+    networks:
+      - resumeiq_network
+
+  redis:
+    image: redis:latest
+    container_name: resumeiq_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    restart: unless-stopped
+    networks:
+      - resumeiq_network
+    command: redis-server --appendonly yes
+
+  # Uncomment to run backend in Docker (optional)
+  # backend:
+  #   build: .
+  #   container_name: resumeiq_backend
+  #   ports:
+  #     - "8000:8000"
+  #   volumes:
+  #     - .:/app
+  #     - uploads:/app/uploads
+  #   environment:
+  #     - MONGO_URI=mongodb://mongo:27017/
+  #     - REDIS_URL=redis://redis:6379/0
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - resumeiq_network
+  #
+  # celery:
+  #   build: .
+  #   container_name: resumeiq_celery
+  #   command: celery -A app.core.background worker --loglevel=info
+  #   volumes:
+  #     - .:/app
+  #   environment:
+  #     - MONGO_URI=mongodb://mongo:27017/
+  #     - REDIS_URL=redis://redis:6379/0
+  #   depends_on:
+  #     - mongo
+  #     - redis
+  #   restart: unless-stopped
+  #   networks:
+  #     - resumeiq_network
+
+volumes:
+  mongo_data:
+  redis_data:
+
+networks:
+  resumeiq_network:
+    driver: bridge

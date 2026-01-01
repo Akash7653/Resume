@@ -1,0 +1,18 @@
+{
+  "Frontend Developer": {
+    "description": "Build responsive user interfaces using React, JavaScript, HTML, CSS, Tailwind and modern frontend frameworks.",
+    "skills": ["react", "javascript", "html", "css", "tailwind"]
+  },
+  "Backend Developer": {
+    "description": "Develop scalable backend APIs using Python, FastAPI, databases, authentication and server-side logic.",
+    "skills": ["python", "fastapi", "mongodb", "sql", "api"]
+  },
+  "Full Stack Developer": {
+    "description": "Work on both frontend and backend, building complete web applications using React, Python and databases.",
+    "skills": ["react", "python", "fastapi", "mongodb", "javascript"]
+  },
+  "Machine Learning Engineer": {
+    "description": "Build machine learning models, data pipelines, NLP systems and deploy AI solutions.",
+    "skills": ["python", "machine learning", "nlp", "scikit-learn", "deep learning"]
+  }
+}

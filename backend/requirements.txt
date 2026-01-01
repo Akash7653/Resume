@@ -1,0 +1,17 @@
+fastapi
+uvicorn
+motor
+pymongo
+python-jose
+passlib[bcrypt]
+python-dotenv
+python-multipart
+email-validator
+pdfplumber
+python-docx
+sentence-transformers
+spacy
+redis
+celery
+openai
+stripe
