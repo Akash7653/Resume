@@ -1,9 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
-import { FileText, ArrowRight, CheckCircle, XCircle, Sparkles, User, Mail, Lock, Eye, EyeOff, Chrome, Shield, Brain, Target, Rocket, Star, Globe, Fingerprint, Key, Zap, Wifi, Cpu, Database, Cloud, ShieldCheck, TrendingUp, Gift, Crown, Diamond } from 'lucide-react';
+import { User, Mail, Lock, Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth.ts';
-import { Button } from '../../components/ui/Button';
 
 export const Register = () => {
   const [name, setName] = useState('');
@@ -11,89 +9,14 @@ export const Register = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-  const [socialLoading, setSocialLoading] = useState<string | null>(null);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [activeFeature, setActiveFeature] = useState<number | null>(null);
-  const [glowIntensity, setGlowIntensity] = useState(0);
-  const containerRef = useRef<HTMLDivElement>(null);
 
   const { register } = useAuth();
   const navigate = useNavigate();
 
-  // 3D mouse tracking with enhanced effects
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  const rotateX = useTransform(mouseY, [-0.5, 0.5], [15, -15]);
-  const rotateY = useTransform(mouseX, [-0.5, 0.5], [-15, 15]);
-
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (containerRef.current) {
-        const rect = containerRef.current.getBoundingClientRect();
-        const x = (e.clientX - rect.left) / rect.width - 0.5;
-        const y = (e.clientY - rect.top) / rect.height - 0.5;
-        mouseX.set(x);
-        mouseY.set(y);
-        setMousePosition({ x: e.clientX, y: e.clientY });
-        
-        // Dynamic glow intensity based on mouse proximity
-        const distance = Math.sqrt(x * x + y * y);
-        setGlowIntensity(Math.max(0, 1 - distance * 2));
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, [mouseX, mouseY]);
-
-  const handleSocialSignup = async (provider: string) => {
-    setSocialLoading(provider);
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    setSocialLoading(null);
-    navigate('/dashboard');
-  };
-
-  const premiumFeatures = [
-    { icon: Gift, title: 'Free 10 Resume Uploads', desc: 'Start your journey with generous limits', color: 'from-green-500 to-emerald-500', badge: 'FREE' },
-    { icon: Brain, title: 'AI-Powered Analysis', desc: 'Advanced ATS scoring and optimization', color: 'from-purple-500 to-pink-500', badge: 'AI' },
-    { icon: Crown, title: 'Career Insights', desc: 'Data-driven recommendations for success', color: 'from-yellow-500 to-orange-500', badge: 'PRO' },
-    { icon: Diamond, title: 'Premium Templates', desc: 'Industry-specific professional designs', color: 'from-blue-500 to-cyan-500', badge: 'PLUS' }
-  ];
-
-  const getPasswordStrength = (password: string) => {
-    if (!password) return { score: 0, text: '', color: '' };
-    
-    let score = 0;
-    const checks = {
-      length: password.length >= 8,
-      lowercase: /[a-z]/.test(password),
-      uppercase: /[A-Z]/.test(password),
-      numbers: /\d/.test(password),
-      special: /[!@#$%^&*(),.?":{}|<>]/.test(password)
-    };
-    
-    Object.values(checks).forEach(passed => {
-      if (passed) score++;
-    });
-    
-    const strengthLevels = [
-      { score: 0, text: 'Very Weak', color: 'bg-red-500' },
-      { score: 1, text: 'Weak', color: 'bg-red-500' },
-      { score: 2, text: 'Fair', color: 'bg-emerald-500' },
-      { score: 3, text: 'Good', color: 'bg-blue-500' },
-      { score: 4, text: 'Strong', color: 'bg-green-500' },
-      { score: 5, text: 'Very Strong', color: 'bg-green-500' }
-    ];
-    
-    return strengthLevels[score] || strengthLevels[0];
-  };
-
-  const passwordStrength = getPasswordStrength(password);
-
+  
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
